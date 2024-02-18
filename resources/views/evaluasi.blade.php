@@ -36,6 +36,10 @@
             margin-left: 250px; /* Lebar sidebar */
             padding: 20px;
         }
+        /* CSS untuk nilai-nilai di tengah */
+        table th, table td {
+            text-align: center; /* Mengatur nilai-nilai di tengah */
+        }
     </style>
 </head>
 <body>
