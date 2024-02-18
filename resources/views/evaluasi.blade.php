@@ -14,8 +14,23 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #f8f9fa;
+            background-color: #007bff; /* Warna latar belakang sidebar */
             padding-top: 50px; /* Untuk memberikan ruang bagi judul menu */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan pada sidebar */
+        }
+        .sidebar h2 {
+            color: #fff; /* Warna teks judul sidebar */
+            text-align: center; /* Posisi teks judul ke tengah */
+            margin-bottom: 20px; /* Jarak antara judul dengan menu */
+        }
+        .nav-link {
+            color: #fff; /* Warna teks menu */
+            font-weight: bold; /* Ketebalan teks menu */
+            transition: all 0.3s ease; /* Efek transisi saat hover */
+        }
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Warna latar belakang saat hover */
+            border-radius: 5px; /* Corner radius saat hover */
         }
         .content {
             margin-left: 250px; /* Lebar sidebar */
@@ -42,6 +57,7 @@
         </li>
     </ul>
 </div>
+
 
 
     <!-- Bagian konten -->
