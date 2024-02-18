@@ -13,10 +13,12 @@
             width: 250px;
             position: fixed;
             top: 0;
-            left: 0;
+            left: -250px; /* Sembunyikan sidebar di sisi kiri */
             background-color: #007bff; /* Warna latar belakang sidebar */
             padding-top: 50px; /* Untuk memberikan ruang bagi judul menu */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan pada sidebar */
+            z-index: 1000; /* Atur z-index agar sidebar tampil di atas header */
+            transition: left 0.3s; /* Animasi saat mengubah posisi sidebar */
         }
         .sidebar h2 {
             color: #fff; /* Warna teks judul sidebar */
@@ -33,34 +35,66 @@
             border-radius: 5px; /* Corner radius saat hover */
         }
         .content {
-            margin-left: 250px; /* Lebar sidebar */
             padding: 20px;
+            margin-top: 100px; /* Tambahkan margin-top agar konten tidak tertutupi oleh header */
+            padding-top: 20px; /* Tambahkan padding-top agar tulisan fitur tidak tertutupi */
+            transition: margin-left 0.3s; /* Animasi saat mengubah margin kiri konten */
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #007bff;
+            color: #fff;
+            width: 100%;
+            z-index: 500; /* Atur z-index agar header tampil di bawah sidebar */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            position: fixed; /* Atur posisi header agar tetap di bagian atas saat digulir */
+            top: 0;
+        }
+        /* Style untuk tombol open sidebar */
+        #openSidebar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1500; /* Atur z-index agar tombol tampil di atas sidebar */
         }
     </style>
 </head>
 <body>
-    <!-- Bagian sidebar -->
-<div class="sidebar">
-    <h2>Fitur</h2>
-    <ul class="nav flex-column">
-        <!-- Tombol Data -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('data.index') }}">Data</a>
-        </li>
-        <!-- Tombol Perhitungan -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('perhitungan') }}">Perhitungan</a>
-        </li>
-        <!-- Tombol Evaluasi -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('evaluasi') }}">Evaluasi</a>
-        </li>
-    </ul>
-</div>
+    <!-- Tombol open sidebar -->
+    <button id="openSidebar">&#9776;</button>
 
+    <!-- Bagian sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Fitur</h2>
+        <ul class="nav flex-column">
+            <!-- Tombol Data -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('data.index') }}">Data</a>
+            </li>
+            <!-- Tombol Perhitungan -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('perhitungan') }}">Perhitungan</a>
+            </li>
+            <!-- Tombol Evaluasi -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('evaluasi') }}">Evaluasi</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Sistem Rekomendasi Saham</h1>
+    </div>
 
     <!-- Bagian konten -->
-    <div class="content">
+    <div class="content" id="content">
         <h1>Data Aktual</h1>
         <table class="table table-striped">
             <thead>
@@ -92,5 +126,22 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Memuat JavaScript untuk mengatur perilaku sidebar -->
+    <script>
+        const openSidebarBtn = document.getElementById('openSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        
+        openSidebarBtn.addEventListener('click', () => {
+            if (sidebar.style.left === '0px') {
+                sidebar.style.left = '-250px'; // Tutup sidebar
+                content.style.marginLeft = '0'; // Geser konten ke kiri
+            } else {
+                sidebar.style.left = '0'; // Buka sidebar
+                content.style.marginLeft = '250px'; // Geser konten ke kanan
+            }
+        });
+    </script>
 </body>
 </html>
