@@ -95,7 +95,7 @@
     </div>
     <!-- Bagian konten -->
     <div class="content">
-        <h1>Data</h1>
+        <h1>Data Awal</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
