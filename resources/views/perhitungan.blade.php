@@ -4,42 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Rekomendasi Saham</title>
-    <!-- Memuat CSS Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* CSS tambahan untuk mengatur tampilan */
         .sidebar {
             height: 100%;
             width: 250px;
             position: fixed;
             top: 0;
-            left: -250px; /* Sembunyikan sidebar di sisi kiri */
-            background-color: #007bff; /* Warna latar belakang sidebar */
-            padding-top: 50px; /* Untuk memberikan ruang bagi judul menu */
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan pada sidebar */
-            z-index: 1000; /* Atur z-index agar sidebar tampil di atas header */
-            transition: left 0.3s; /* Animasi saat mengubah posisi sidebar */
+            left: -250px;
+            background-color: #007bff;
+            padding-top: 50px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: left 0.3s;
         }
         .sidebar h2 {
-            color: #fff; /* Warna teks judul sidebar */
-            text-align: center; /* Posisi teks judul ke tengah */
-            margin-bottom: 20px; /* Jarak antara judul dengan menu */
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
         }
         .nav-link {
-            color: #fff; /* Warna teks menu */
-            font-weight: bold; /* Ketebalan teks menu */
-            transition: all 0.3s ease; /* Efek transisi saat hover */
+            color: #fff;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
         .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* Warna latar belakang saat hover */
-            border-radius: 5px; /* Corner radius saat hover */
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
         }
         .content {
-            margin-left: 0; /* Awalnya konten tidak bergeser */
+            margin-left: 0;
             padding: 20px;
-            margin-top: 100px; /* Tambahkan margin-top agar konten tidak tertutupi oleh header */
-            padding-top: 20px; /* Tambahkan padding-top agar tulisan fitur tidak tertutupi */
-            transition: margin-left 0.3s; /* Animasi saat mengubah margin kiri konten */
+            margin-top: 100px;
+            padding-top: 20px;
+            transition: margin-left 0.3s;
         }
         .header {
             text-align: center;
@@ -47,12 +45,11 @@
             background-color: #007bff;
             color: #fff;
             width: 100%;
-            z-index: 500; /* Atur z-index agar header tampil di bawah sidebar */
+            z-index: 500;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-            position: fixed; /* Atur posisi header agar tetap di bagian atas saat digulir */
+            position: fixed;
             top: 0;
         }
-        /* Style untuk tombol open sidebar */
         #openSidebar {
             position: fixed;
             top: 20px;
@@ -62,38 +59,31 @@
             border: none;
             padding: 10px 15px;
             cursor: pointer;
-            z-index: 1500; /* Atur z-index agar tombol tampil di atas sidebar */
+            z-index: 1500;
         }
     </style>
 </head>
 <body>
-    <!-- Tombol open sidebar -->
     <button id="openSidebar">&#9776;</button>
 
-    <!-- Bagian sidebar -->
     <div class="sidebar" id="sidebar">
         <h2>Fitur</h2>
         <ul class="nav flex-column">
-            <!-- Tombol Data -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('data.index') }}">Data</a>
             </li>
-            <!-- Tombol Perhitungan -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('perhitungan') }}">Perhitungan</a>
             </li>
-            <!-- Tombol Evaluasi -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('evaluasi') }}">Evaluasi</a>
             </li>
         </ul>
     </div>
 
-    <!-- Header -->
     <div class="header">
         <h1>Sistem Rekomendasi Saham</h1>
     </div>
-    <!-- Bagian konten -->
     <div class="content">
         <h1>Data Awal</h1>
         <table class="table table-striped">
@@ -216,7 +206,6 @@
                             $evaluasi = $saham->evaluasi->where('id_kriteria', $kriteria->id)->first();
                             if ($evaluasi) {
                                 $nilai = $evaluasi->nilai;
-                                // Logika untuk menentukan bobot berdasarkan nilai evaluasi
                                 switch ($kriteria->id) {
                                     case 2:
                                         if ($nilai <= 15) {
@@ -257,11 +246,10 @@
                                     default:
                                         $nilai = "Tidak tersedia";
                                 }
-                                // Normalisasi nilai berdasarkan atribut kriteria
                                 if ($kriteria->atribut == 'Benefit') {
-                                    $nilai = (double)($nilai / 3); // Rumus normalisasi untuk atribut Benefit
+                                    $nilai = (double)($nilai / 3);
                                 } elseif ($kriteria->atribut == 'Cost') {
-                                    $nilai = (double)(1 / $nilai); // Rumus normalisasi untuk atribut Cost
+                                    $nilai = (double)(1 / $nilai);
                                 }
                                 echo $nilai;
                             } else {
@@ -295,7 +283,6 @@
                             $evaluasi = $saham->evaluasi->where('id_kriteria', $kriteria->id)->first();
                             if ($evaluasi) {
                                 $nilai = $evaluasi->nilai;
-                                // Logika untuk menentukan bobot berdasarkan nilai evaluasi
                                 switch ($kriteria->id) {
                                     case 2:
                                         if ($nilai <= 15) {
@@ -336,14 +323,12 @@
                                     default:
                                         $nilai = "Tidak tersedia";
                                 }
-                                // Normalisasi nilai berdasarkan atribut kriteria
                                 if ($kriteria->atribut == 'Benefit') {
-                                    $nilai = (double)($nilai / 3); // Rumus normalisasi untuk atribut Benefit
+                                    $nilai = (double)($nilai / 3);
                                 } elseif ($kriteria->atribut == 'Cost') {
-                                    $nilai = (double)(1 / $nilai); // Rumus normalisasi untuk atribut Cost
+                                    $nilai = (double)(1 / $nilai);
                                 }
-                                // Mengalikan nilai normalisasi dengan bobot
-                                $nilai *= $kriteria->bobot; // Mengalikan dengan bobot
+                                $nilai *= $kriteria->bobot;
                                 echo $nilai;
                             } else {
                                 echo "Tidak tersedia";
@@ -377,7 +362,6 @@
                             $evaluasi = $saham->evaluasi->where('id_kriteria', $kriteria->id)->first();
                             if ($evaluasi) {
                                 $nilai = $evaluasi->nilai;
-                                // Logika untuk menentukan bobot berdasarkan nilai evaluasi
                                 switch ($kriteria->id) {
                                     case 2:
                                         if ($nilai <= 15) {
@@ -418,14 +402,12 @@
                                     default:
                                         $nilai = "Tidak tersedia";
                                 }
-                                // Normalisasi nilai berdasarkan atribut kriteria
                                 if ($kriteria->atribut == 'Benefit') {
-                                    $nilai = (double)($nilai / 3); // Rumus normalisasi untuk atribut Benefit
+                                    $nilai = (double)($nilai / 3);
                                 } elseif ($kriteria->atribut == 'Cost') {
-                                    $nilai = (double)(1 / $nilai); // Rumus normalisasi untuk atribut Cost
+                                    $nilai = (double)(1 / $nilai);
                                 }
-                                // Mengalikan nilai normalisasi dengan bobot
-                                $nilai *= $kriteria->bobot; // Mengalikan dengan bobot
+                                $nilai *= $kriteria->bobot;
                                 $totalNilai += $nilai;
                             }
                         @endphp
@@ -437,7 +419,6 @@
     </tbody>
 </table>
 </div>
-<!-- Memuat JavaScript untuk mengatur perilaku sidebar -->
 <script>
         const openSidebarBtn = document.getElementById('openSidebar');
         const sidebar = document.getElementById('sidebar');
@@ -445,11 +426,11 @@
 
         openSidebarBtn.addEventListener('click', () => {
             if (sidebar.style.left === '0px') {
-                sidebar.style.left = '-250px'; // Tutup sidebar
-                content.style.marginLeft = '0'; // Geser konten ke kiri
+                sidebar.style.left = '-250px';
+                content.style.marginLeft = '0';
             } else {
-                sidebar.style.left = '0'; // Buka sidebar
-                content.style.marginLeft = '250px'; // Geser konten ke kanan
+                sidebar.style.left = '0';
+                content.style.marginLeft = '250px';
             }
         });
     </script>
